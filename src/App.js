@@ -1,17 +1,14 @@
 import logo from "./logo.svg";
 import { useState } from "react";
 import "./App.css";
+import { Display } from "./components/Display";
+import { Form } from "./components/Form";
+import { List } from "./components/List";
 
 function App() {
-  const [name, setName] = useState("");
   const [list, setList] = useState([]);
 
-  const handleOnChange = (e) => {
-    const { value } = e.target;
-    setName(value);
-  };
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
+  const addUser = (name) => {
     setList([...list, name]);
   };
 
@@ -30,24 +27,9 @@ function App() {
         className="userList"
         style={{ boxShadow: "0 0 10px grey", padding: "2rem" }}
       >
-        <div className="display">{name}</div>
-        <hr />
+        <Form addUser={addUser} />
 
-        <div className="form">
-          <form action="" onSubmit={handleOnSubmit}>
-            <input type="text" onChange={handleOnChange} />
-            <button>Add User</button>
-          </form>
-        </div>
-        <hr />
-        <ul>
-          {/* {list.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))} */}
-          {list.map((item, i) => {
-            return <li key={i}>{item}</li>;
-          })}
-        </ul>
+        <List list={list} />
       </div>
     </div>
   );
